@@ -4,7 +4,7 @@ const path = require('node:path');
 const app = express();
 
 // Configuraciones
-app.set('port',process.env.PORT || 5000)
+app.set('port',process.env.PORT || 8000)
 
 // Middlewares
 app.use(morgan('dev'));
