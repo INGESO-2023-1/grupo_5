@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './login.css';
 
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -45,51 +46,47 @@ function Login() {
   }
 
   return (
-    <div>
-      <h2>{isLogin ? 'Iniciar sesión' : 'Registrarse'}</h2>
-      {isLogin ? (
-        <form>
-          <label>
-            Correo electrónico:
-            <input type="email" name="email" value={loginFormData.email} onChange={handleLoginChange} />
-          </label>
-          <br />
-          <label>
-            Contraseña:
-            <input type="password" name="password" value={loginFormData.password} onChange={handleLoginChange} />
-          </label>
-          <br />
-          <button type="submit">Iniciar sesión</button>
-          <br />
-          <button type="button" onClick={handleSwitchAuthMode}>Registrarse</button>
-        </form>
-      ) : (
-        <form>
-          <label>
-            Nombre:
-            <input type="text" name="name" value={registerFormData.name} onChange={handleRegisterChange} />
-          </label>
-          <br />
-          <label>
-            Correo electrónico:
-            <input type="email" name="email" value={registerFormData.email} onChange={handleRegisterChange} />
-          </label>
-          <br />
-          <label>
-            Contraseña:
-            <input type="password" name="password" value={registerFormData.password} onChange={handleRegisterChange} />
-          </label>
-          <br />
-          <label>
-            Confirmar contraseña:
-            <input type="password" name="confirmPassword" value={registerFormData.confirmPassword} onChange={handleRegisterChange} />
-          </label>
-          <br />
-          <button type="submit">Registrarse</button>
-          <br />
-          <button type="button" onClick={handleSwitchAuthMode}>Iniciar sesión</button>
-        </form>
-      )}
+    <div className='container'>
+      <div className='screen'>
+        <h2 className='my-title'>{isLogin ? 'Iniciar sesión' : 'Registrarse'}</h2>
+        {isLogin ? (
+          <form className='my-form'>
+            <label>
+              <input type="email" name="email" value={loginFormData.email} onChange={handleLoginChange} placeholder='Correo electrónico' className='my-input' />
+            </label>
+            <br />
+            <label>
+              <input type="password" name="password" value={loginFormData.password} onChange={handleLoginChange} placeholder='Contraseña' className='my-input'/>
+            </label>
+            <br />
+            <button type="submit" className='my-button'>Iniciar sesión</button>
+            <br />
+            <button type="button" className='my-button' onClick={handleSwitchAuthMode}>Registrarse</button>
+          </form>
+        ) : (
+          <form className='my-form'>
+            <label>
+              <input type="text" name="name" value={registerFormData.name} onChange={handleRegisterChange} placeholder='Nombre de usuario' className='my-input'/>
+            </label>
+            <br />
+            <label>
+              <input type="email" name="email" value={registerFormData.email} onChange={handleRegisterChange} placeholder='Correo electrónico' className='my-input' />
+            </label>
+            <br />
+            <label>
+              <input type="password" name="password" value={registerFormData.password} onChange={handleRegisterChange} placeholder='Contraseña' className='my-input'/>
+            </label>
+            <br />
+            <label>
+              <input type="password" name="confirmPassword" value={registerFormData.confirmPassword} onChange={handleRegisterChange} placeholder='Confirmar contraseña' className='my-input'/>
+            </label>
+            <br />
+            <button type="submit" className='my-button'>Registrarse</button>
+            <br />
+            <button type="button" className='my-button' onClick={handleSwitchAuthMode}>Iniciar sesión</button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }
