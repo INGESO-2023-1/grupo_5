@@ -7,6 +7,8 @@ const util = require('util');
 const db = require('../db.js');
 const uuid = require('uuid');
 
+const query = util.promisify(db.query).bind(db);
+
 // Register
 router.post('/register', async(req, res) => {
     const{email, username, password, passwordConfirmation} = req.body;
@@ -23,11 +25,11 @@ router.post('/register', async(req, res) => {
     }
     try{
         // Validar con base de datos
-        const existingUser = await db.query('SELECT * FROM users WHERE email = ?', [email]);
+        const existingUser = await query('SELECT * FROM users WHERE email = ?', [email]);
         if(existingUser){
             return res.status(409).json({message: 'Ya existe un usuario con este email.'})
         }
-        const existingUsername = await db.query('SELECT * FROM users WHERE username = ?', [username]);
+        const existingUsername = await query('SELECT * FROM users WHERE username = ?', [username]);
         if (existingUsername.length > 0) {
             return res.status(409).json({message: 'Ya existe un usuario con este nombre de usuario.' });
         }
@@ -39,13 +41,13 @@ router.post('/register', async(req, res) => {
         const userId = uuid.v4();
 
         // Inserción en BD
-        await bd.query('INSERT INTO users SET ?', {userId, email, username, password: passwordHash});
+        await query('INSERT INTO users SET ?', {userId, email, username, password: passwordHash});
 
         // Token de autenticación
         const token = jwt.sign({email, username}, 'charlesLakesEsUnPro', {expiresIn: '30d'});
 
         res.json({message: 'Usuario registrado exitosamente.', token});
-        
+
     }catch(error){
         console.error(error);
         res.status(500).json({message: 'Error al registrar el usuario.'});
