@@ -3,8 +3,10 @@ const morgan = require('morgan');
 const path = require('node:path');
 const app = express();
 
+require('dotenv').config();
+
 // Configuraciones
-app.set('port',process.env.PORT || 8000)
+app.set('port',process.env.PORT || 5000)
 
 // Middlewares
 app.use(morgan('dev'));
@@ -21,5 +23,5 @@ app.get('*', (req,res) => res.sendFile(path.join(__dirname+'/public/index.html')
 
 // Inicio server
 app.listen(app.get('port'),()=>{
-    console.log('Server on port 5000');
+    console.log('Server on port '+app.get('port')+'...');
 });
