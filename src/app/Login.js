@@ -21,8 +21,22 @@ function Login() {
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
-    console.log(loginFormData);
-    // Aquí podrías enviar los datos del formulario de inicio de sesión a tu servidor para procesar el inicio de sesión
+    axios.post('/api/login',loginFormData)
+      .then((response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Felicidades',
+          text: response.data.message
+        });
+        sessionStorage.setItem('token',response.data.token);
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message
+        })
+      });
 
   }
 
@@ -35,12 +49,12 @@ function Login() {
     event.preventDefault();
     axios.post('/api/register',registerFormData)
       .then((response) => {
-        console.log(response);
         Swal.fire({
           icon: 'success',
           title: 'Felicidades',
           text: response.data.message
         });
+        sessionStorage.setItem('token',response.data.token);
       })
       .catch((error) => {
         Swal.fire({

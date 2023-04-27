@@ -56,7 +56,7 @@ router.post('/register', async(req, res) => {
 });
 
 // Login
-router.post('/register', async(req, res) => {
+router.post('/login', async(req, res) => {
     const{email, password} = req.body;
 
     if(!email || !password)
@@ -66,16 +66,11 @@ router.post('/register', async(req, res) => {
     const existingMail = await query('SELECT * FROM user WHERE email = ?', [email]);
     if(existingMail.length == 0)
         return res.status(409).json({status:false,message: 'Ese mail no está registrado a una cuenta.'});
-    
-    const checkPass = await query('SELECT * FROM user WHERE email = ? AND password = ?', [email, password]);
-    if(checkPass.length == 0)
-        return res.status(409).json({status:false,message: 'Contraseña inválida.'});
-    
-    const token = jwt.sign({email, username:checkPass[0].username}, privateKey, {expiresIn: '30d', algorithm: 'RS256'});
-    res.json({status: true,message: 'Usuario ingresó exitosamente.', token});
-
-
-
+    const validPassword = await bcrypt.compare(password,existingMail[0].password);
+    if(validPassword === false)
+        return res.status(400).json({status: false,message: 'Constraseña invalida.'});
+    const token = jwt.sign({email, username: existingMail[0].username}, privateKey, {expiresIn: '30d', algorithm: 'RS256'});
+    return res.json({status: true,message: 'Usuario ingresó exitosamente.', token});
 });
 
 // Ruta raíz
