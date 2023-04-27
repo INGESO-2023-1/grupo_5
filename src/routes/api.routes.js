@@ -45,13 +45,35 @@ router.post('/register', async(req, res) => {
 
         // Token de autenticación
         const token = jwt.sign({email, username}, privateKey, {expiresIn: '30d', algorithm: 'RS256'});
-        console.log(token);
         res.json({status: true,message: 'Usuario registrado exitosamente.', token});
 
     }catch(error){
         console.error("Error 500 Register.");
         res.status(500).json({message: 'Error al registrar el usuario.'});
     }
+
+
+});
+
+// Login
+router.post('/register', async(req, res) => {
+    const{email, password} = req.body;
+
+    if(!email || !password)
+        return res.status(400).json({status:false,message: 'Datos faltantes.'});
+        
+    // Validar email y contraseña en BD
+    const existingMail = await query('SELECT * FROM user WHERE email = ?', [email]);
+    if(existingMail.length == 0)
+        return res.status(409).json({status:false,message: 'Ese mail no está registrado a una cuenta.'});
+    
+    const checkPass = await query('SELECT * FROM user WHERE email = ? AND password = ?', [email, password]);
+    if(checkPass.length == 0)
+        return res.status(409).json({status:false,message: 'Contraseña inválida.'});
+    
+    const token = jwt.sign({email, username:checkPass[0].username}, privateKey, {expiresIn: '30d', algorithm: 'RS256'});
+    res.json({status: true,message: 'Usuario ingresó exitosamente.', token});
+
 
 
 });
