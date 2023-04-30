@@ -73,6 +73,23 @@ router.post('/login', async(req, res) => {
     return res.json({status: true,message: 'Usuario ingresó exitosamente.', token});
 });
 
+// Buscador de usuarios
+router.get('/users', async(req, res) => {
+    const {searchQuery} = req.searchQuery;
+
+    if(!searchQuery){
+        return res.status(400).json({message: 'Falta parámetro de búsqueda.'})
+    }
+
+    try{
+        const searchedUsers = await query('SELECT * FROM user WHERE username LIKE ?', [`%${searchQuery}%`]);
+        res.json(searchedUsers);
+    }catch(error){
+        console.error(error);
+        res.status(500).json({message: 'Error al realizar la búsqueda.'});
+    }
+});
+
 // Ruta raíz
 router.get('/',(req,res) => {
     res.send("API");
