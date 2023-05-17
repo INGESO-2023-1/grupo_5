@@ -12,19 +12,21 @@
     align-items: center;
 }
 
-.title{
+.title-friends{
     font-size: 40px;
     margin: 2%;
     font-weight: bold;
     text-align: justify;
 }
 
-.my-form{
+.form-friends{
     background-color: rgb(83, 83, 224);
     color: #fff;
     margin: 2%;
     text-align: center;
     padding: 10px;
+    width:100%;
+    box-sizing: border-box;
 }
 
 .my-input {
@@ -44,7 +46,7 @@
   }
 
 
-.my-button {
+.button-friends {
     background-color: #4545bc;
     color: white;
     padding: 10px;
@@ -55,7 +57,7 @@
     cursor: pointer;
     transition: ease background 0.3s;
   }
-.my-button:hover{
+.button-friends:hover{
   background: rgb(55, 55, 218);
 }
 
@@ -89,6 +91,7 @@
     transition: ease border 0.3s;
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .user-item:hover{

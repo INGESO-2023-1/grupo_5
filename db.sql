@@ -4,3 +4,8 @@ CREATE TABLE user(
     email varchar(64),
     password varchar(256)
 );
+
+CREATE TABLE follow(
+    followed INT NOT NULL,
+    follower INT NOT NULL
+);
