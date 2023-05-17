@@ -1,0 +1,126 @@
+.header{
+    background-color: rgb(83, 83, 224);
+    color: #fff;
+    margin: auto;
+    text-align: justify;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.header__actions{
+    display: flex;
+    align-items: center;
+}
+
+.title{
+    font-size: 40px;
+    margin: 2%;
+    font-weight: bold;
+    text-align: justify;
+}
+
+.my-form{
+    background-color: rgb(83, 83, 224);
+    color: #fff;
+    margin: 2%;
+    text-align: center;
+    padding: 10px;
+}
+
+.my-input {
+    outline: none;
+    width: 200px;
+    padding: 10px;  
+    margin-right: 5px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    transition: ease border 0.3s;
+  }
+  .my-input:focus{
+      border:solid 1px rgb(83, 83, 224);
+  }
+
+
+.my-button {
+    background-color: #4545bc;
+    color: white;
+    padding: 10px;
+    margin-top: 1px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: ease background 0.3s;
+  }
+.my-button:hover{
+  background: rgb(55, 55, 218);
+}
+
+.user-list{
+    background-color: rgb(255, 255, 255);
+    color: #000000;
+    margin-top: 10px;
+    text-align: justify;
+    padding: 5%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+.title-list{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: justify;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.user-item{
+    background-color: rgb(255, 255, 255);
+    color: #000000;
+    margin-bottom: 10px;
+    text-align: justify;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    transition: ease border 0.3s;
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-item:hover{
+    border:solid 1px rgb(83, 83, 224);
+}
+
+.user-item__name{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: justify;
+}
+
+
+.user-foto{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+    box-sizing: border-box;
+    transition: ease border 0.3s;
+}
+
+.foto-name{
+    display: flex;
+    align-items: center;
+}
+
+.user-item__actions{
+    display: flex;
+    align-items: center;
+}
