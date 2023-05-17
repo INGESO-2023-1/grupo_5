@@ -90,6 +90,40 @@ router.get('/users', async(req, res) => {
     }
 });
 
+// Agregar amigo
+app.post('/follow', (req, res) => {
+    const { follower, followed } = req.body;
+  
+    // Insertar los valores en la tabla follow
+    const query = 'INSERT INTO follow (follower, followed) VALUES (?, ?)';
+    connection.query(query, [follower, followed], (err, result) => {
+      if (err) {
+        console.error('Error al agregar amigo: ', err);
+        res.status(500).send('Error al agregar amigo');
+        return;
+      }
+  
+      res.status(200).send('Amigo agregado correctamente');
+    });
+});
+
+// Ruta para eliminar un seguido
+app.delete('/delete', (req, res) => {
+    const { follower, followed } = req.body;
+  
+    // Eliminar el seguido de la tabla seguidos
+    const query = 'DELETE FROM follow WHERE follower = ? AND followed = ?';
+    connection.query(query, [follower, followed], (err, result) => {
+      if (err) {
+        console.error('Error al eliminar amigo: ', err);
+        res.status(500).send('Error al eliminar amigo');
+        return;
+      }
+  
+      res.status(200).send('Amigo eliminado correctamente');
+    });
+});
+  
 // Ruta raíz
 router.get('/',(req,res) => {
     res.send("API");
