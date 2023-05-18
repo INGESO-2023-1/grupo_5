@@ -29,6 +29,7 @@ function Login() {
           text: response.data.message
         });
         sessionStorage.setItem('token',response.data.token);
+        sessionStorage.setItem('username',response.data.username);
       })
       .catch((error) => {
         Swal.fire({
@@ -54,7 +55,6 @@ function Login() {
           title: 'Felicidades',
           text: response.data.message
         });
-        sessionStorage.setItem('token',response.data.token);
       })
       .catch((error) => {
         Swal.fire({
