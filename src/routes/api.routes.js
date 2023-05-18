@@ -73,8 +73,25 @@ router.post('/login', async(req, res) => {
     return res.json({status: true,message: 'Usuario ingresó exitosamente.', token});
 });
 
+// Validación de Token
+const tokenValidation = (req, res, next) => {
+    const token = req.headers.authorization;
+
+    if(!token){
+        return res.status(401).json({message: 'Token no proporcionado.'});
+    }
+    try{    
+        const decoded = jwt.verify(token, privateKey)
+        req.user = decoded;
+        next();
+    }catch(error){
+        console.error(error);
+        return res.status(401).json({ message: 'Token inválido.' });
+    }
+}
+
 // Buscador de usuarios
-router.get('/users', async(req, res) => {
+router.get('/users', tokenValidation, async(req, res) => {
     const {searchQuery} = req.searchQuery;
 
     if(!searchQuery){
@@ -91,7 +108,7 @@ router.get('/users', async(req, res) => {
 });
 
 // Agregar amigo
-app.post('/follow', (req, res) => {
+router.post('/follow', (req, res) => {
     const { follower, followed } = req.body;
   
     // Insertar los valores en la tabla follow
@@ -108,7 +125,7 @@ app.post('/follow', (req, res) => {
 });
 
 // Ruta para eliminar un seguido
-app.delete('/delete', (req, res) => {
+router.delete('/delete', (req, res) => {
     const { follower, followed } = req.body;
   
     // Eliminar el seguido de la tabla seguidos
