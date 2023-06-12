@@ -12,7 +12,7 @@ CREATE TABLE follow(
     FOREIGN KEY (follower) REFERENCES user(id)
 );
 
-CREATE TABLE messages (
+CREATE TABLE messages(
     message_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     sender_id INT NOT NULL,
     receiver_id INT NOT NULL,
