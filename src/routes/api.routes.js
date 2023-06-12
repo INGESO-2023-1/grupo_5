@@ -97,6 +97,7 @@ const tokenValidation = (req, res, next) => {
 
 // Buscador de usuarios
 router.get('/users', tokenValidation, async(req, res) => {
+    const user_id = req.user.id;
     const {searchQuery} = req.query;
 
     if(!searchQuery){
@@ -104,7 +105,7 @@ router.get('/users', tokenValidation, async(req, res) => {
     }
 
     try{
-        const searchedUsers = await query('SELECT id,username FROM user WHERE username LIKE ?', [`%${searchQuery}%`]);
+        const searchedUsers = await query('SELECT id,username FROM user WHERE username LIKE ? AND id != ?', [`%${searchQuery}%`,user_id]);
         res.json({status: true, users: searchedUsers});
     }catch(error){
         console.error(error);
@@ -131,10 +132,10 @@ router.post('/follow',tokenValidation,(req, res) => {
 });
 
 // Ruta para eliminar un seguido
-router.delete('/delete',tokenValidation,(req, res) => {
+router.delete('/delete/:followed',tokenValidation,(req, res) => {
     const follower = req.user.id;
-    const {followed}  = req.body;
-  
+    const followed  = req.params.followed;
+    console.log(followed);
     // Eliminar el seguido de la tabla seguidos
     const query = 'DELETE FROM follow WHERE follower = ? AND followed = ?';
     db.query(query, [follower, followed], (err, result) => {
@@ -144,7 +145,7 @@ router.delete('/delete',tokenValidation,(req, res) => {
         return;
       }
   
-      res.status(200).send({status:false, message: 'Amigo eliminado correctamente.'});
+      res.status(200).send({status:true, message: 'Amigo eliminado correctamente.'});
     });
 });
 
@@ -153,7 +154,7 @@ router.get('/followed', tokenValidation, (req, res) => {
     const follower = req.user.id;
   
     // Consultar la tabla de seguidos para obtener la lista de amigos
-    const query = 'SELECT followed FROM follow WHERE follower = ?';
+    const query = 'SELECT user.id,user.username FROM follow INNER JOIN user ON follow.followed = user.id WHERE follow.follower = ?';
     db.query(query, [follower], (err, results) => {
       if (err) {
         console.error('Error al obtener la lista de amigos: ', err);
@@ -161,8 +162,9 @@ router.get('/followed', tokenValidation, (req, res) => {
         return;
       }
   
-      const amigos = results.map((row) => row.followed);
-      res.status(200).send({ status: true, amigos });
+      const friends = results;
+      console.log(friends);
+      res.status(200).send({ status: true, friends });
     });
   });
   

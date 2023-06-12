@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import './friends.css';
 
@@ -10,6 +10,8 @@ function Friends(){
     const [resultData,setResultData] = useState({
         users: undefined
     });
+
+    const [friends,setFriends] = useState(false);
 
     const handleSearchChange = (event) => {
         const {name,value} = event.target;
@@ -34,8 +36,34 @@ function Friends(){
             headers:{
                 Authorization: sessionStorage.getItem('token')
             }
+        }).then((response) => {
+            getFriends();
         });
     };
+
+    const handleDeleteFriends = (followed) => {
+        axios.delete(`/api/delete/${followed}`,{
+            headers:{
+                Authorization: sessionStorage.getItem('token')
+            }
+        }).then(response => {
+            getFriends();
+        });
+    };
+
+    const getFriends = () => {
+        axios.get('/api/followed',{
+            headers:{
+                Authorization: sessionStorage.getItem('token')
+            }
+        }).then(response => {
+            setFriends(response.data.friends);
+        });
+    };
+
+    useEffect(() => {
+        if(friends === false) getFriends();
+    },[friends]);
 
     return (
         <div>
@@ -57,8 +85,11 @@ function Friends(){
                     <div className="title-list">Resultados:</div>
                     {
                         resultData.users.map(dataUser => {
+                            let flag = true;
+                            friends.forEach(element => {if(element.id === dataUser.id) flag = false;})
+                            if(!flag) return '';
                             return (
-                                <div className="user-item">
+                                <div className="user-item" key={dataUser.key}>
                                     <div className="foto-name">
                                         <div>
                                             <img src="https://picsum.photos/200/310" alt="" className="user-foto" />
@@ -78,45 +109,25 @@ function Friends(){
 
             <div className="user-list">
                 <div className="title-list">Lista de Contactos</div>
+                {
+                    friends === false?'':(friends.map((row) => {
 
-                <div className="user-item">
-                    <div className="foto-name">
-                        <div>
-                            <img src="https://picsum.photos/200/310" alt="" className="user-foto" />
+                        return (
+                        <div className="user-item" key={row.id}>
+                            <div className="foto-name">
+                                <div>
+                                    <img src="https://picsum.photos/200/310" alt="" className="user-foto" />
+                                </div>
+                                <div className="user-item__name">{row.username}</div>
+                            </div>
+                            <div className="user-item__actions">
+                                <button className="button-friends" onClick={() => {handleDeleteFriends(row.id)}}>Eliminar</button>
+                            </div>
                         </div>
-                        <div className="user-item__name">Nombre</div>
-                    </div>
-                    <div className="user-item__actions">
-                        <button className="button-friends">Eliminar</button>
-                        <button className="button-friends">Bloquear</button>
-                    </div>
-                </div>
-
-                <div className="user-item">
-                    <div className="foto-name">
-                        <div>
-                            <img src="https://picsum.photos/200/311" alt="" className="user-foto" />
-                        </div>
-                        <div className="user-item__name">Nombre</div>
-                    </div>
-                    <div className="user-item__actions">
-                        <button className="button-friends">Eliminar</button>
-                        <button className="button-friends">Bloquear</button>
-                    </div>
-                </div>
-
-                <div className="user-item">
-                    <div className="foto-name">
-                        <div>
-                            <img src="https://picsum.photos/200/312" alt="" className="user-foto" />
-                        </div>
-                        <div className="user-item__name">Nombre</div>
-                    </div>
-                    <div className="user-item__actions">
-                        <button className="button-friends">Eliminar</button>
-                        <button className="button-friends">Bloquear</button>
-                    </div>
-                </div>
+                        );
+                    }))
+                }
+                
             </div>
         </div>
     )
