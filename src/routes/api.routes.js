@@ -147,6 +147,25 @@ router.delete('/delete',tokenValidation,(req, res) => {
       res.status(200).send({status:false, message: 'Amigo eliminado correctamente.'});
     });
 });
+
+// Ruta para obtener la lista de amigos
+router.get('/followed', tokenValidation, (req, res) => {
+    const follower = req.user.id;
+  
+    // Consultar la tabla de seguidos para obtener la lista de amigos
+    const query = 'SELECT followed FROM follow WHERE follower = ?';
+    db.query(query, [follower], (err, results) => {
+      if (err) {
+        console.error('Error al obtener la lista de amigos: ', err);
+        res.status(500).send({ status: false, message: 'Error al obtener la lista de amigos' });
+        return;
+      }
+  
+      const amigos = results.map((row) => row.followed);
+      res.status(200).send({ status: true, amigos });
+    });
+  });
+  
   
 // Ruta raíz
 router.get('/',(req,res) => {
