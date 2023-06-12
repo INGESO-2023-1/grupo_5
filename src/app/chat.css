@@ -1,0 +1,119 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header{
+    background-color: rgb(83, 83, 224);
+    color: #fff;
+    margin: auto;
+    text-align: justify;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__actions{
+    display: flex;
+    align-items: center;
+}
+
+.header__actions a{
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.container-chat{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 20px rgba(0,0,0,0.4);
+    background-color: rgb(83, 83, 224);
+}
+
+.user-item__name-chat{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: justify;
+}
+
+.user-foto-chat{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+    box-sizing: border-box;
+    transition: ease border 0.3s;
+}
+
+.foto-name-chat{
+    color: white;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.body-chat{
+    overflow: scroll;
+    flex: 1;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px 30px;
+}
+
+.message{
+    background-color: rgb(83, 83, 224);
+    padding: 10px;
+    color: white;
+    width: fit-content; 
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.message-user{
+    margin-left: auto;
+    background-color: white;
+    color: black;
+}
+
+.footer-chat form{
+    display: flex;
+}
+
+
+.footer-chat input{
+    flex: 1;
+    height: 40px;
+    border: none;
+    outline: none;
+    padding-left: 5px;
+    font-size: 16px;
+}
+
+
+.footer-chat button{
+    width: 100px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: rgb(83, 83, 224);
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover{
+    background-color: rgb(57, 57, 150);
+    transition: 0.2s;
+}

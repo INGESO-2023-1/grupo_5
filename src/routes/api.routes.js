@@ -164,7 +164,36 @@ router.get('/followed', tokenValidation, (req, res) => {
       const amigos = results.map((row) => row.followed);
       res.status(200).send({ status: true, amigos });
     });
-  });
+});
+
+// Ruta para obtener los datos del perfil de usuario
+router.get('/profile', tokenValidation, (req, res) => {
+    const userId = req.user.id;
+  
+    // Obtener los datos del perfil del usuario desde la base de datos
+    const query = 'SELECT name, email FROM users WHERE id = ?';
+    db.query(query, [userId], (err, result) => {
+      if (err) {
+        console.error('Error al obtener los datos del perfil: ', err);
+        res.status(500).send({ status: false, message: 'Error al obtener los datos del perfil' });
+        return;
+      }
+  
+      if (result.length === 0) {
+        res.status(404).send({ status: false, message: 'Usuario no encontrado' });
+        return;
+      }
+  
+      const userData = {
+        username: req.user.username,
+        name: result[0].name,
+        email: result[0].email
+      };
+  
+      res.status(200).send(userData);
+    });
+});
+  
   
   
 // Ruta raíz
