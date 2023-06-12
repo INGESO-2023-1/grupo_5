@@ -7,6 +7,7 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "webpack-dev": "webpack --mode development --watch",
+    "webpack-dev-without-backend": "webpack-dev-server --mode development --open",
     "webpack-prod": "webpack --mode production"
   },
   "keywords": [],
@@ -33,10 +34,11 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",
     "style-loader": "^3.3.1",
-    "sweetalert2": "^11.7.3",
+    "sweetalert2": "^11.4.8",
     "util": "^0.12.5",
     "validator": "^13.9.0",
     "webpack": "^5.75.0",
-    "webpack-cli": "^4.10.0"
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.15.1"
   }
 }

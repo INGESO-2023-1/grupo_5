@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     entry: './src/app/index.js',
     output: {
@@ -16,5 +18,11 @@ module.exports = {
                 use: ['style-loader', 'css-loader']
             }
         ]
+    },
+    devServer: {
+        static: {
+            directory: path.join(__dirname,'src/public')
+        },
+        historyApiFallback: true
     }
 };
