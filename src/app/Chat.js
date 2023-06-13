@@ -51,7 +51,7 @@ return (
 
             </div>
             <div class="footer-chat">
-                <form>
+                <form class="chat">
                     <input type="text" class="input-chat" placeholder="Escribe un mensaje..."></input>
                     <button class="button">Enviar</button>
                 </form>

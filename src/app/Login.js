@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import './login.css';
 
 function Login() {
-  
+  const navigate = useNavigate();
+
+
   const [isLogin, setIsLogin] = useState(true);
 
   const [loginFormData, setLoginFormData] = useState({
@@ -30,6 +33,7 @@ function Login() {
         });
         sessionStorage.setItem('token',response.data.token);
         sessionStorage.setItem('username',response.data.username);
+        navigate('/chat');
       })
       .catch((error) => {
         Swal.fire({
@@ -55,6 +59,7 @@ function Login() {
           title: 'Felicidades',
           text: response.data.message
         });
+        handleSwitchAuthMode();
       })
       .catch((error) => {
         Swal.fire({

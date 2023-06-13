@@ -1,7 +1,6 @@
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 .header{
@@ -113,7 +112,7 @@
     cursor: pointer;
 }
 
-form button:hover{
+.chat button:hover{
     background-color: rgb(57, 57, 150);
     transition: 0.2s;
 }

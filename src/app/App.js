@@ -3,6 +3,7 @@ import Root from './Root';
 import Login from './Login';
 import Friends from './Friends';
 import Chat from './Chat';
+import Profile from './Profile';
 
 import {
   createBrowserRouter,
