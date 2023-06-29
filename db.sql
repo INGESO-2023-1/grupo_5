@@ -21,3 +21,10 @@ CREATE TABLE messages(
     FOREIGN KEY (sender_id) REFERENCES user(id),
     FOREIGN KEY (receiver_id) REFERENCES user(id)
 );
+
+CREATE TABLE blocks(
+    blocker_id INT NOT NULL,
+    blocked_id INT NOT NULL,
+    FOREIGN KEY (blocker_id) REFERENCES user(id),
+    FOREIGN KEY (blocked_id) REFERENCES user(id)
+);
