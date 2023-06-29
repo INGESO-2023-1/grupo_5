@@ -9,7 +9,7 @@
     "webpack-dev": "webpack --mode development --watch",
     "webpack-dev-without-backend": "webpack-dev-server --mode development --open",
     "webpack-prod": "webpack --mode production",
-    "socket-start": "node src/socket.io/chat.js"
+    "socket-start": "nodemon src/socket.io/chat.js"
   },
   "keywords": [],
   "author": "",

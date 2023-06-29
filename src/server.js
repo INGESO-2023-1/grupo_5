@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('node:path');
 const app = express();
+require('./socket.io/chat.js');
 
 require('dotenv').config();
 

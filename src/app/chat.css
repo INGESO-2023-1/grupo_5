@@ -65,7 +65,7 @@
 }
 
 .body-chat{
-    overflow: scroll;
+    overflow-y: scroll;
     flex: 1;
     color: white;
     background-color: rgba(0, 0, 0, 0.7);
