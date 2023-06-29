@@ -19,7 +19,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<Root />}>
       <Route index element={<Login />}/>
       <Route path="friends" element={<Friends />}/>
-      <Route path="chat" element={<Chat />}/>
+      <Route path="chat/:user" element={<Chat />}/>
       <Route path="profile" element={<Profile />}/>
     </Route>
   )

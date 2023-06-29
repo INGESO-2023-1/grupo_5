@@ -173,7 +173,7 @@ router.get('/profile', tokenValidation, (req, res) => {
     const userId = req.user.id;
   
     // Obtener los datos del perfil del usuario desde la base de datos
-    const query = 'SELECT name, email FROM users WHERE id = ?';
+    const query = 'SELECT username, email FROM user WHERE id = ?';
     db.query(query, [userId], (err, result) => {
       if (err) {
         console.error('Error al obtener los datos del perfil: ', err);

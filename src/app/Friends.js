@@ -1,8 +1,11 @@
 import React, { useState,useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './friends.css';
 
 function Friends(){
+    const navigate = useNavigate();
+
     const [searchData,setSearchData] = useState({
         searchQuery: ''
     });
@@ -51,6 +54,10 @@ function Friends(){
         });
     };
 
+    const handleChatFriends = (followed) => {
+        navigate(`/chat/${followed}`);
+    };
+
     const getFriends = () => {
         axios.get('/api/followed',{
             headers:{
@@ -67,14 +74,6 @@ function Friends(){
 
     return (
         <div>
-            <div className="header">
-                <h1 className="title-friends">Hola {sessionStorage.getItem('username')}</h1>
-                <div className="header__actions">
-                    <button className="button-friends">Cerrar Sesión</button>
-                </div>
-            </div>
-
-
             <form className="form-friends" onSubmit={handleSearchSubmit}>
                 <input type="text" placeholder="Buscar Usuario" className="my-input" name="searchQuery" onChange={handleSearchChange} />
                 <button className="button-friends">Buscar</button>
@@ -121,6 +120,7 @@ function Friends(){
                                 <div className="user-item__name">{row.username}</div>
                             </div>
                             <div className="user-item__actions">
+                                <button className="button-friends" onClick={() => {handleChatFriends(row.id)}}>Chatear</button>
                                 <button className="button-friends" onClick={() => {handleDeleteFriends(row.id)}}>Eliminar</button>
                             </div>
                         </div>

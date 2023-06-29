@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './profile.css';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -20,6 +22,11 @@ function Profile() {
       });
   }, []);
 
+  const handleClearData = () => {
+    sessionStorage.clear();
+    navigate('/');
+  };
+
   return (
     <div className="profile-container">
       {userData ? (
@@ -27,13 +34,13 @@ function Profile() {
           <div className="profile-header">
             <h1 className="profile-title">Perfil de {userData.username}</h1>
             <div className="profile-actions">
-              <button className="profile-button">Cerrar Sesión</button>
+              <button className="profile-button" onClick={() => handleClearData()}>Cerrar Sesión</button>
             </div>
           </div>
 
           <div className="profile-details">
             <div className="profile-item">
-              <div className="profile-item__label">Nombre:</div>
+              <div className="profile-item__label">Nombre: {userData.username}</div>
               <div className="profile-item__value">{userData.name}</div>
             </div>
             <div className="profile-item">

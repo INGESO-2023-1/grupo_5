@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2'
@@ -33,7 +33,7 @@ function Login() {
         });
         sessionStorage.setItem('token',response.data.token);
         sessionStorage.setItem('username',response.data.username);
-        navigate('/chat');
+        navigate('/friends');
       })
       .catch((error) => {
         Swal.fire({
@@ -79,6 +79,11 @@ function Login() {
   const handleSwitchAuthMode = () => {
     setIsLogin(prevState => !prevState);
   }
+
+  useEffect(() => {
+    if(sessionStorage.getItem('token') && sessionStorage.getItem('username')) 
+      navigate('/friends');
+  },[]);
 
   return (
     <div className='container'>
