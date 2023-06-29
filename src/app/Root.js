@@ -1,5 +1,6 @@
 import React from 'react';
 import {Outlet, useNavigate} from 'react-router-dom';
+import './root.css'
 
 function Root(){
     const navigate = useNavigate();
