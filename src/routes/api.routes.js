@@ -196,7 +196,26 @@ router.get('/profile', tokenValidation, (req, res) => {
     });
 });
   
-  
+// Obtener historial de mensajes
+router.get('/', (req, res) => {
+    const userId = req.user.id
+    const chatterId = req.params.chatterId
+
+    const query = "SELECT message_id, sender_id, message FROM messages WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)";
+    db.query(query, [userId, chatterId, chatterId, userId], (err, results) => {
+        if (err) {
+            console.error('Error al obtener historial de mensajes: ', err);
+            res.status(500).send({ status: false, message: 'Error al obtener historial de mensajes' });
+            return;
+        }
+    
+        const message = results;
+        console.log(message);
+        res.status(200).send({ status: true, message });
+    })
+})
+
+
   
 // Ruta raíz
 router.get('/',(req,res) => {
