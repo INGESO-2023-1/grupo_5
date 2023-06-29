@@ -204,3 +204,21 @@ router.get('/',(req,res) => {
 })
 
 module.exports = router;
+
+
+// Eliminar mi propia cuenta
+router.delete('/delete_my', tokenValidation, (req, res) => {
+    const userId = req.user.id;
+
+    // Eliminar la cuenta de usuario de la base de datos
+    const query = 'DELETE FROM user WHERE id = ?';
+    db.query(query, [userId], (err, result) => {
+      if (err) {
+        console.error('Error al eliminar la cuenta de usuario: ', err);
+        res.status(500).send({ status: false, message: 'Error al eliminar la cuenta de usuario' });
+        return;
+      }
+      res.status(200).send({ status: true, message: 'Cuenta de usuario eliminada correctamente' });
+    });
+}
+);

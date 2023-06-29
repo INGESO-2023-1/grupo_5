@@ -27,6 +27,22 @@ function Profile() {
     navigate('/');
   };
 
+  /// Eliminar mi propia cuenta router.delete('/delete', tokenValidation, (req, res)
+  const handleDeleteAccount = () => {
+    axios.delete('/api/delete_my', {
+      headers: {
+        Authorization: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        console.log('Usuario eliminado correctamente: ', response);
+        handleClearData();
+      })
+      .catch((error) => {
+        console.error('Error al eliminar el usuario: ', error);
+      });
+  };
+
   return (
     <div className="profile-container">
       {userData ? (
@@ -34,11 +50,14 @@ function Profile() {
           <div className="profile-header">
             <h1 className="profile-title">Perfil de {userData.username}</h1>
             <div className="profile-actions">
-              <button className="profile-button" onClick={() => handleClearData()}>Cerrar Sesión</button>
+              <button className="profile-button" onClick={ handleDeleteAccount }>Eliminar Cuenta</button>
             </div>
           </div>
 
           <div className="profile-details">
+            <div>
+              <img src="https://picsum.photos/200/310" alt="" className="user-foto-chat" />
+            </div>
             <div className="profile-item">
               <div className="profile-item__label">Nombre: {userData.username}</div>
               <div className="profile-item__value">{userData.name}</div>

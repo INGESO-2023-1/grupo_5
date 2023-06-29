@@ -8,11 +8,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
   }
   
   .profile-title {
     font-size: 24px;
+    font-weight: bold;
   }
   
   .profile-actions {
@@ -22,15 +25,20 @@
   
   .profile-button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #de2626;
     color: #fff;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
   }
   
   .profile-details {
     background-color: #f5f5f5;
     padding: 20px;
+    gap: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
   }
   
   .profile-item {
@@ -39,11 +47,19 @@
   }
   
   .profile-item__label {
+    min-width: 150px;
     font-weight: bold;
-    width: 150px;
+
   }
   
   .profile-item__value {
     flex-grow: 1;
   }
   
+  .user-foto-chat{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+

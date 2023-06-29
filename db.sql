@@ -8,8 +8,8 @@ CREATE TABLE user(
 CREATE TABLE follow(
     followed INT NOT NULL,
     follower INT NOT NULL,
-    FOREIGN KEY (followed) REFERENCES user(id),
-    FOREIGN KEY (follower) REFERENCES user(id)
+    FOREIGN KEY (followed) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (follower) REFERENCES user(id) ON DELETE CASCADE
 );
 
 CREATE TABLE messages(
@@ -18,13 +18,16 @@ CREATE TABLE messages(
     receiver_id INT NOT NULL,
     message_text TEXT NOT NULL,
     timestamp TIMESTAMP,
-    FOREIGN KEY (sender_id) REFERENCES user(id),
-    FOREIGN KEY (receiver_id) REFERENCES user(id)
+    FOREIGN KEY (sender_id) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (receiver_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
 CREATE TABLE blocks(
     blocker_id INT NOT NULL,
     blocked_id INT NOT NULL,
-    FOREIGN KEY (blocker_id) REFERENCES user(id),
-    FOREIGN KEY (blocked_id) REFERENCES user(id)
+    FOREIGN KEY (blocker_id) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (blocked_id) REFERENCES user(id) ON DELETE CASCADE
 );
+
+
+
