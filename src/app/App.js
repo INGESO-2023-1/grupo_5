@@ -4,6 +4,7 @@ import Login from './Login';
 import Friends from './Friends';
 import Chat from './Chat';
 import Profile from './Profile';
+import io from 'socket.io-client';
 
 import {
   createBrowserRouter,
@@ -29,5 +30,12 @@ function App() {
   return (<RouterProvider router={router} />);
 }
 
+const socket = io("http://localhost:3000");
+
+//socket.emit('send-message', message)
+
+socket.on('receive-message', message => {
+  displayMessage(message)
+})
 
 export default App;
