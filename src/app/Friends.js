@@ -97,7 +97,6 @@ function Friends(){
                                     </div>
                                     <div className="user-item__actions">
                                         <button className="button-friends" onClick={() => handleAddFriends(dataUser.id)}>Añadir</button>
-                                        <button className="button-friends">Bloquear</button>
                                     </div>
                                 </div>
                         )})
